@@ -13,15 +13,15 @@ import{ useNavigation} from '@react-navigation/native';
 import Login from "./login";
 import Mensagem from "./mensagem";
 import * as ImagePicker from "expo-image-picker";
+import { cadastra_user } from "../api";
 
 
 const Cadastro = ({}) => {
-  const [selectedImage, setSelectedImage] = useState("");
-    const [textnome, setTextNome] = useState("");
-    const [textapelido, setTextApelido] = useState("");
-    const [texttelefone, setTextTelefone] = useState("");
-    const [textemail, setTextEmail] = useState("");
-    const[ inputse,setInputse] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [nome, setNome] = useState();
+  const [email, setEmail] = useState();
+  const [telefone, setTelefone] = useState();
+  const [senha, setSenha] = useState();
     const navigation= useNavigation();
     const pickImageAsync = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,16 +30,25 @@ const Cadastro = ({}) => {
       });
   
       if (!result.canceled) {
-        setSelectedImage(result.assets[0].uri);
+        setAvatar(result.assets[0].uri);
       } else {
         alert(" Foto não selecionada");
       }
     
     };
-    const InfoApelido = () => {
+    const InfoNome = () => {
       alert(" Nome que ira aparecer para outros usuarios ");
       
     };
+    const salvarUsuario = async () => {
+      cadastra_user(nome,avatar,telefone,email,senha)
+      MensagemPagina()
+  }
+
+  const MensagemPagina = () => {
+      navigation.navigate('Mensagem')
+  }
+    
     return(
         <>
         
@@ -59,8 +68,8 @@ const Cadastro = ({}) => {
             <View style={style.inputArea}>
             <Text style={style.h2}>Foto</Text>
                     <TouchableOpacity onPress={pickImageAsync}>
-                  {selectedImage ? (
-                    <Image source={{ uri: selectedImage }} style={style.adduser} />
+                  {avatar ? (
+                    <Image source={{ uri: avatar }} style={style.adduser} />
                   ) : (
                     <Image
                       source={require("../../assets/addUserIcon.png")}
@@ -68,52 +77,47 @@ const Cadastro = ({}) => {
                     />
                   )}
                 </TouchableOpacity>
+                <View style={style.inputNome}>
                 <Text style={style.h2}>Nome</Text>
-                <TextInputt 
-                    placeholder={"Digite aqui  seu nome...."} 
-                    text={textnome}
-                    onChangeText={setTextNome} ></TextInputt>
-                <View style={style.inputApelido}>
-                <Text style={style.h2}>Apelido</Text>
-                <TouchableOpacity onPress={InfoApelido}>
+                <TouchableOpacity onPress={InfoNome}>
                 <Image
                   source={require("../../assets/Info.png")}
                   style={style.info}
                 />
                 </TouchableOpacity>
                 </View>
-                <TextInputt placeholder={"Digite aqui  seu apelido...."} 
-                text={textnome}
-                onChangeText={setTextNome} ></TextInputt>
+                <TextInputt placeholder={"Digite aqui  seu nome...."} 
+                text={nome}
+                onChangeText={setNome} ></TextInputt>
               
 
                 <Text style={style.h2}>Telefone</Text>
                 <TextInputt placeholder={"Digite aqui  seu telefone...."} 
-                text={texttelefone}
-                onChangeText={setTextTelefone} ></TextInputt>
+                text={telefone}
+                onChangeText={setTelefone} ></TextInputt>
 
                 <Text style={style.h2}>Email</Text>
                 <TextInputt placeholder={"Digite aqui  seu email...."}  >
-                text={textemail}
-                onChangeText={setTextEmail}
+                text={email}
+                onChangeText={setEmail}
                 </TextInputt>
                 <Text style={style.h2}>Senha</Text>
                 <TextInputt 
                 style={style.input} 
                 placeholder={"Digite aqui  sua senha...."} 
-                value={inputse}
-                onChangeText={(texto)=> setInputse(texto)}
+                value={senha}
+                onChangeText={(texto)=> setSenha(texto)}
                 secureTextEntry
                  ></TextInputt>
 
-            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate(Mensagem)}>
+            <TouchableOpacity style={style.button} onPress={cadastra_user}>
             <Text style={style.line}>Cadastrar</Text>
             </TouchableOpacity>
             </View>
             <View>
             <Text style={style.h1}>ja possui uma conta?</Text> 
 
-            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate(Login)}>
+            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate("Login")}>
             <Text style={style.line}>Faça Login</Text>
             </TouchableOpacity>
             
@@ -174,7 +178,7 @@ pombo: {
     width: 25,
     height: 25,
   },
-  inputApelido :{
+  inputNome :{
     flexDirection: "row",
     width:"100%"
 

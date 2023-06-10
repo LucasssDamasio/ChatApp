@@ -1,17 +1,24 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState, useEffect } from "react";
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const url= '192.168.137.29'
-export function cadastro(nome,telefone,email,senha){
-    axios.post(url+"/",{
-        nome,telefone,email,senha
-    }).then(({data})=>{
+
+  const url= '192.168.56.1'
+export function cadastra_user(nome,avatar,telefone,email,senha){
+  const dados= {
+    "nome": nome,
+    "avatar": avatar,
+    "telefone": telefone,
+    "email": email,
+    "senha": senha
+}
+    console.log(dados)
+    axios.post(`${url}+/user/`, dados
+        ).then(({data})=>{
         console.log(data)
     })
+    .catch((err) => {
+      console.log(err)
+    });
 }
 
 const saveUserData = async (data) => {
@@ -33,7 +40,7 @@ const saveUserData = async (data) => {
   };
 
 
-export function login (login,senha){
+export function loga_user (login,senha){
     axios.post(url+`/user/${login}/${senha}`
         
     )    .then(async ({ data }) => {

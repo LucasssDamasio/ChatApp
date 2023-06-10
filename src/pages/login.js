@@ -51,7 +51,7 @@ const Login = ({}) => {
                 secureTextEntry
                  ></TextInputt>
 
-            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate(Mensagem)}>
+            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate("Mensagem")}>
             <Text style={style.line}>Acessar</Text>
             </TouchableOpacity>
 
@@ -61,7 +61,7 @@ const Login = ({}) => {
             <Text style={style.h1}>Esqueci minha senha</Text>
             <Text style={style.h1}>Não possui uma conta?</Text> 
 
-            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate(Cadastro)}>
+            <TouchableOpacity style={style.button} onPress={()=> navigation.navigate("Cadastro")}>
             <Text style={style.line}>Cadastre-se</Text>
             </TouchableOpacity>
             
