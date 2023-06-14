@@ -1,16 +1,14 @@
 import React from "react";
-import { StatusBar } from 'expo-status-bar';
-import {  StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
-  SafeAreaView,
   SafeAreaProvider,
-  useSafeAreaInsets,
+  SafeAreaView
 } from 'react-native-safe-area-context';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from './src/pages/login';
 import Cadastro from "./src/pages/cadastro";
+import Login from './src/pages/login';
 import Mensagem from "./src/pages/mensagem";
 
 
