@@ -10,6 +10,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Cadastro from "./src/pages/cadastro";
 import Login from './src/pages/login';
 import Mensagem from "./src/pages/mensagem";
+import ListaUsuario from "./src/pages/listausuario";
+import ListaUsuarioTotal from "./src/pages/listausuariototal";
 
 
 const Stack = createNativeStackNavigator();
@@ -23,9 +25,13 @@ export default function App() {
         <Stack.Navigator initialRouteName="Login" screenOptions={{
           headerShown:false
         }}> 
+        
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastro" component={Cadastro} />
           <Stack.Screen name="Mensagem" component={Mensagem} />
+          <Stack.Screen name="ListaUsuario" component={ListaUsuario} />
+          <Stack.Screen name="ListaUsuarioTotal" component={ListaUsuarioTotal} />
+          
         </Stack.Navigator>
       </NavigationContainer>
       </SafeAreaView>

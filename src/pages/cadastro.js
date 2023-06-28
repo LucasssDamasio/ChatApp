@@ -12,28 +12,32 @@ const Cadastro = ({}) => {
   const [telefone, setTelefone] = useState("");
   const [senha, setSenha] = useState("");
   const navigation = useNavigation();
+
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
+      base64: true
     });
 
     if (!result.canceled) {
-      setAvatar(result.assets[0].uri);
+      setAvatar(result.assets[0]);
     } else {
       alert(" Foto não selecionada");
     }
   };
+
   const InfoNome = () => {
     alert(" Nome que ira aparecer para outros usuarios ");
   };
+
   const salvarUsuario = async () => {
-    cadastra_user(nome, avatar, telefone, email, senha);
+    cadastra_user(nome, avatar ? avatar.base64 : "", telefone, email, senha);
     MensagemPagina();
   };
 
   const MensagemPagina = () => {
-    navigation.navigate("Mensagem");
+    navigation.navigate("ListaUsuario");
   };
 
   return (
@@ -54,7 +58,7 @@ const Cadastro = ({}) => {
           <Text style={style.h2}>Foto</Text>
           <TouchableOpacity onPress={pickImageAsync}>
             {avatar ? (
-              <Image source={{ uri: avatar }} style={style.adduser} />
+              <Image source={{ uri: avatar.uri }} style={style.adduser} />
             ) : (
               <Image
                 source={require("../../assets/addUserIcon.png")}
@@ -72,28 +76,28 @@ const Cadastro = ({}) => {
             </TouchableOpacity>
           </View>
           <TextInputt
-            placeholder={"Digite aqui  seu nome...."}
+            placeholder={"Digite aqui  seu nome..."}
             text={nome}
             onChangeText={setNome}
           ></TextInputt>
 
           <Text style={style.h2}>Telefone</Text>
           <TextInputt
-            placeholder={"Digite aqui  seu telefone...."}
+            placeholder={"Digite aqui  seu telefone..."}
             text={telefone}
             onChangeText={setTelefone}
           ></TextInputt>
 
           <Text style={style.h2}>Email</Text>
           <TextInputt
-            placeholder={"Digite aqui  seu email...."}
+            placeholder={"Digite aqui  seu email..."}
             text={email}
             onChangeText={setEmail}
           ></TextInputt>
           <Text style={style.h2}>Senha</Text>
           <TextInputt
             style={style.input}
-            placeholder={"Digite aqui  sua senha...."}
+            placeholder={"Digite aqui  sua senha..."}
             value={senha}
             onChangeText={(texto) => setSenha(texto)}
             secureTextEntry

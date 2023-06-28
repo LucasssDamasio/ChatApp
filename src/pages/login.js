@@ -14,7 +14,7 @@ const Login = ({}) => {
   async function logar() {
     await loga_user1(telefone, senha).then((usuario) => {
       if (usuario) {
-        navigation.navigate("Mensagem");
+        navigation.navigate("ListaUsuario");
       } else {
         alert("telefone ou senha incorretos");
       }
